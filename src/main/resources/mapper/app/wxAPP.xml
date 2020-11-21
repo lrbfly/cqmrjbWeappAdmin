@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqmrjb.dao.app.WxAppDao">
+    <!--设置domain类和数据库中表的字段一一对应，注意数据库字段和domain类中的字段名称不致，此处一定要！-->
+    <resultMap id="BaseResultMap" type="com.cqmrjb.entity.app.WxApp"></resultMap>
+
+    <!--添加小程序-->
+    <insert id="addApp" parameterType="map">
+        insert into t_app (appId,appName,appManufactor)
+        value ( #{appId},#{appName},#{appManufactor})
+    </insert>
+
+    <!-- 查询 动态条件 记录 -->
+    <select id="selectApp" parameterType="map" resultMap="BaseResultMap">
+        SELECT * FROM t_app
+        <where>
+
+            is_delete = #{is_delete}
+
+            <if test="appId !=null and appId != '' ">
+              and appId=#{appId}
+            </if>
+            <if test="appName !=null and appName != ''">
+                and appName=#{appName}
+            </if>
+            <if test="appManufactor !=null and appManufactor != '' ">
+                and appManufactor=#{appManufactor}
+            </if>
+            <if test="status !=null and status != '' ">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <!--修改 数据-->
+    <update id="updateApp" parameterType="map">
+        UPDATE  t_app
+            <set>
+                <if test="appId != null " >appId = #{appId},</if>
+                <if test="appName != null " >appName = #{appName},</if>
+                <if test="appManufactor != null " >appManufactor = #{appManufactor},</if>
+
+                <if test="status != null ">status = #{status},</if>
+                <if test="is_delete != null " >is_delete = #{is_delete},</if>
+                <if test="appCategory != null " >appCategory = #{appCategory},</if>
+
+            </set>
+        where appId = #{appId}
+    </update>
+</mapper>
