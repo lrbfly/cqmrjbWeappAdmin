@@ -73,24 +73,15 @@ public class WxAppServiceImpl implements WxAppService {
         // 获取 appCategory 参数 toString 再存入数据库
         if(map.get("appCategory") !=null){
             ArrayList srr = (ArrayList)map.get("appCategory");
-            String Strr = "";
-            if(srr!=null){
-                if(srr.size()>1){
-                    for(int i=0,l=srr.size();i<l;i++){
-                        if(i != l-1){
-                            Strr+=srr.get(i).toString()+",";
-                        }else{
-                            Strr+=srr.get(i).toString();
-                        }
-                    }
-                }else{
-                    Strr = srr.get(0).toString();
-                }
-
-            }
-            map.put("appCategory",Strr);
+            map.put("appCategory",ArrayToSting(srr));
         }
 
+        // 获取 appScope 参数 toString 再存入数据库
+        if(map.get("appScope") !=null){
+            ArrayList srr = (ArrayList)map.get("appScope");
+
+            map.put("appScope",ArrayToSting(srr));
+        }
 
         int num = wxAppDao.updateApp(map);
         if(num>0){
@@ -157,6 +148,25 @@ public class WxAppServiceImpl implements WxAppService {
             mapList.add(wxAppMap);
         }
         return mapList;
+    }
+
+    //Array转化成 String
+    public String ArrayToSting (ArrayList arrayList){
+        String Strr = "";
+
+            if(arrayList.size()>1){
+                for(int i=0,l=arrayList.size();i<l;i++){
+                    if(i != l-1){
+                        Strr+=arrayList.get(i).toString()+",";
+                    }else{
+                        Strr+=arrayList.get(i).toString();
+                    }
+                }
+            }else{
+                Strr = arrayList.get(0).toString();
+            }
+
+        return Strr;
     }
 
 }
