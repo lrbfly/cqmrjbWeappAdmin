@@ -6,5 +6,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface AppCategoryService {
-    List<AppCategory> selectAppCategory(Map map);
+    Map<String,Object> selectAppCategory(Map map);
 }

@@ -1,24 +1,26 @@
-package com.cqmrjb.service.appCategory;
+package com.cqmrjb.service.appScope;
 
-import com.cqmrjb.dao.appCategory.AppCategoryDao;
+import com.cqmrjb.dao.appScope.AppScopeDao;
 import com.cqmrjb.entity.appCategory.AppCategory;
+import com.cqmrjb.entity.appScope.AppScope;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class AppCategoryServiceImpl implements AppCategoryService {
-    @Resource
-    private AppCategoryDao appCategoryDao;
+public class AppScopeServiceImpl implements AppScopeService{
+    @Autowired
+    private AppScopeDao appScopeDao;
 
-    public Map<String,Object> selectAppCategory(Map map){
+    public Map<String,Object> selectAppScope(Map map){
         Map<String,Object> result = new HashMap<>();
+        List<AppScope> list =  new ArrayList<>();
         map.put("status",1);
-        List<AppCategory>  list = appCategoryDao.selectAppCategory(map);
+        list = appScopeDao.selectAppScope(map);
         //判断 查询数据 是否为空
         if(list.size()>0){
             result.put("code",200);

@@ -20,6 +20,7 @@ public class UserController {
     @RequestMapping( "/login")
     @ResponseBody
     public Map<String,Object> selectUserByIdTest(@RequestBody Map<String,Object> params){
+
         return userService.selectUserByName(params);
     }
 }

@@ -44,6 +44,7 @@
                 <if test="status != null ">status = #{status},</if>
                 <if test="is_delete != null " >is_delete = #{is_delete},</if>
                 <if test="appCategory != null " >appCategory = #{appCategory},</if>
+                <if test="appScope != null " >appScope = #{appScope}</if>
 
             </set>
         where appId = #{appId}

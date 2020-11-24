@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cqmrjb.dao.appCategory.AppCategoryDao">
+<mapper namespace="com.cqmrjb.dao.appScope.AppScopeDao">
     <!--设置domain类和数据库中表的字段一一对应，注意数据库字段和domain类中的字段名称不致，此处一定要！-->
-    <resultMap id="BaseResultMap" type="com.cqmrjb.entity.appCategory.AppCategory"></resultMap>
+    <resultMap id="BaseResultMap" type="com.cqmrjb.entity.appScope.AppScope"></resultMap>
 
     <!--添加小程序-->
     <!--<insert id="addApp" parameterType="map">-->
@@ -12,8 +12,8 @@
     <!--</insert>-->
 
     <!-- 查询 动态条件 记录 -->
-    <select id="selectAppCategory" parameterType="map" resultMap="BaseResultMap">
-        SELECT * FROM t_appcategory
+    <select id="selectAppScope" parameterType="map" resultMap="BaseResultMap">
+        SELECT * FROM t_appscope
         <where>
             <if test="status !=null ">
                status=#{status}

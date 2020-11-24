@@ -2,8 +2,10 @@ package com.cqmrjb.service.app;
 
 import com.cqmrjb.dao.app.WxAppDao;
 import com.cqmrjb.dao.appCategory.AppCategoryDao;
+import com.cqmrjb.dao.appScope.AppScopeDao;
 import com.cqmrjb.entity.app.WxApp;
 import com.cqmrjb.entity.appCategory.AppCategory;
+import com.cqmrjb.entity.appScope.AppScope;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ public class WxAppServiceImpl implements WxAppService {
     private WxAppDao wxAppDao;
     @Resource
     private AppCategoryDao appCategoryDao;
+    @Autowired
+    private AppScopeDao appScopeDao;
 
     @Override
     public Map<String,Object> addApp(Map map){
@@ -65,25 +69,28 @@ public class WxAppServiceImpl implements WxAppService {
     public Map<String,Object> updateApp(Map map){
         Map<String,Object> result = new HashMap<>();
         List<WxApp> list = new ArrayList<>();
-        // 获取 appCategory 参数 toString 再存入数据库
-        ArrayList srr = (ArrayList)map.get("appCategory");
-        String Strr = "";
-        if(srr!=null){
-            if(srr.size()>1){
-                for(int i=0,l=srr.size();i<l;i++){
-                    if(i != l-1){
-                        Strr+=srr.get(i).toString()+",";
-                    }else{
-                        Strr+=srr.get(i).toString();
-                    }
-                }
-            }else{
-                Strr = srr.get(0).toString();
-            }
 
+        // 获取 appCategory 参数 toString 再存入数据库
+        if(map.get("appCategory") !=null){
+            ArrayList srr = (ArrayList)map.get("appCategory");
+            String Strr = "";
+            if(srr!=null){
+                if(srr.size()>1){
+                    for(int i=0,l=srr.size();i<l;i++){
+                        if(i != l-1){
+                            Strr+=srr.get(i).toString()+",";
+                        }else{
+                            Strr+=srr.get(i).toString();
+                        }
+                    }
+                }else{
+                    Strr = srr.get(0).toString();
+                }
+
+            }
+            map.put("appCategory",Strr);
         }
 
-        map.put("appCategory",Strr);
 
         int num = wxAppDao.updateApp(map);
         if(num>0){
@@ -109,7 +116,8 @@ public class WxAppServiceImpl implements WxAppService {
         for(WxApp wxApp : list){
             //组装 前端业务需要map
             Map<String,Object> wxAppMap = new HashMap<>();
-            String appCategoryStr1 = ""; //拼接 维修范围 字符串
+            String appCategoryStr1 = ""; //拼接 维修设备 字符串
+            String appScopetr1 = ""; //拼接 维修范围 字符串
             wxAppMap.put("wxApp",wxApp);
 
             if(wxApp.getAppCategory() !=null){
@@ -128,6 +136,24 @@ public class WxAppServiceImpl implements WxAppService {
             }else{
                 wxAppMap.put("appCategory",null);
             }
+
+            if(wxApp.getAppScope() !=null){
+                //维修范围 为复选框 数组格式
+                String [] appScopeStr = wxApp.getAppScope().split(",");
+                //循环 id 查找 对应设备
+                for(int i=0,l=appScopeStr.length;i<l;i++){
+                    Map<String,Object> params = new HashMap<>();
+                    params.put("id",appScopeStr[i]);
+                    List<AppScope> appScopeList = appScopeDao.selectAppScope(params);
+                    appScopetr1+=appScopeList.get(0).getAppScope()+" ";
+                }
+                wxApp.setAppScope(appScopetr1);
+
+                wxAppMap.put("appScope",appScopeStr);
+            }else{
+                wxAppMap.put("appScope",null);
+            }
+
             mapList.add(wxAppMap);
         }
         return mapList;

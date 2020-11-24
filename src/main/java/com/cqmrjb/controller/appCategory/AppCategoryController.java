@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,8 +21,9 @@ public class AppCategoryController {
 
     @RequestMapping("/selectAppCategoryList")
     @ResponseBody
-    public List<AppCategory> selectAppCategoryList(@RequestBody Map<String,Object> params){
-        List<AppCategory> list = appCategoryService.selectAppCategory(params);
-        return list;
+    public Map<String,Object> selectAppCategoryList(@RequestBody Map<String,Object> params){
+        Map<String,Object> result = new HashMap<>();
+        result = appCategoryService.selectAppCategory(params);
+        return result;
     }
 }
