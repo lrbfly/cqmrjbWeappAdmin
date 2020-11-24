@@ -2,6 +2,7 @@ package com.cqmrjb.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 @Configuration
@@ -21,6 +22,12 @@ public class CORSConfiguration extends WebMvcConfigurationSupport {
                         "access-control-max-age",
                         "X-Frame-Options")
                 .allowCredentials(false).maxAge(3600);
+
+
         super.addCorsMappings(registry);
+    }
+    @Override
+    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/img/**").addResourceLocations("file:E:/jsr_img/");
     }
 }
