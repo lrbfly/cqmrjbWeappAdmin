@@ -46,6 +46,7 @@
                 <if test="appCategory != null " >appCategory = #{appCategory},</if>
                 <if test="appScope != null " >appScope = #{appScope}</if>
                 <if test="appBanner != null " >appBanner = #{appBanner}</if>
+                <if test="appConent != null " >appConent = #{appConent}</if>
             </set>
         where appId = #{appId}
     </update>
