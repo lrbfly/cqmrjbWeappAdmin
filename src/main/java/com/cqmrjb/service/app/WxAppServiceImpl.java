@@ -83,6 +83,12 @@ public class WxAppServiceImpl implements WxAppService {
             map.put("appScope",ArrayToSting(srr));
         }
 
+        // 获取 appBanner 参数 toString 再存入数据库
+        if(map.get("appBanner") !=null){
+            ArrayList srr = (ArrayList)map.get("appBanner");
+            map.put("appBanner",ArrayToSting(srr));
+        }
+
         int num = wxAppDao.updateApp(map);
         if(num>0){
             Map<String,Object> params = new HashMap<>();
