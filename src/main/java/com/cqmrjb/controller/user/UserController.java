@@ -23,4 +23,9 @@ public class UserController {
 
         return userService.selectUserByName(params);
     }
+    @RequestMapping(value="/test",method= RequestMethod.GET)
+    @ResponseBody
+    public String sayHello(){
+        return "id:test123456";
+    }
 }
