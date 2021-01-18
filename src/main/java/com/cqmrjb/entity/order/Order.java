@@ -9,7 +9,7 @@ public class Order {
     private String create_time;
     private int orde_type;
     private String update_time;
-    private int order_source;
+    private String order_source;
 
     public int getId() {
         return id;
@@ -75,11 +75,11 @@ public class Order {
         this.update_time = update_time;
     }
 
-    public int getOrder_source() {
+    public String getOrder_source() {
         return order_source;
     }
 
-    public void setOrder_source(int order_source) {
+    public void setOrder_source(String order_source) {
         this.order_source = order_source;
     }
 

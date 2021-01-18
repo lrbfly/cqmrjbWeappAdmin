@@ -28,9 +28,28 @@ public class OrderServiceImpl implements OrderService{
             result.put("msg", "操作成功");
             result.put("data",list);
         }else{
-            result.put("msg", "没有数据...");
+            result.put("msg", "操作失败");
             result.put("data",list);
         }
         return result;
     }
+
+    public Map<String,Object> addOrder(Map map){
+        Map<String,Object> result = new HashMap<>();
+        List<Order> list =  new ArrayList<>();
+        int num  = orderDao.addOrder(map);
+        list = orderDao.selectOrder(map);
+        //判断 新增数据 是否为空
+        if(num>0){
+            result.put("msg", "操作成功");
+            result.put("data",list);
+        }else{
+            result.put("msg", "没有数据...");
+            result.put("data",list);
+        }
+        result.put("code",200);
+        return result;
+    }
+
+
 }

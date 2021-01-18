@@ -5,6 +5,12 @@
     <!--设置domain类和数据库中表的字段一一对应，注意数据库字段和domain类中的字段名称不致，此处一定要！-->
     <resultMap id="BaseResultMap" type="com.cqmrjb.entity.order.Order"></resultMap>
 
+    <!--新增订单-->
+    <insert id="addOrder" parameterType="map">
+        insert into jxwx_order (phone,address,type,electrical,orde_type,order_source)
+        value ( #{phone},#{address},#{type},#{electrical},#{orde_type},#{order_source})
+    </insert>
+
     <!-- 查询 动态条件 记录 -->
     <select id="selectOrder" parameterType="map" resultMap="BaseResultMap">
         SELECT * FROM jxwx_order
@@ -17,5 +23,6 @@
             </if>
         </where>
     </select>
+
 
 </mapper>
