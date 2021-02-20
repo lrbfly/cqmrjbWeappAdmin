@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqmrjb.dao.appMenu.AppMenuDao">
+    <!--设置domain类和数据库中表的字段一一对应，注意数据库字段和domain类中的字段名称不致，此处一定要！-->
+    <resultMap id="BaseResultMap" type="com.cqmrjb.entity.appMenu.AppMenu"></resultMap>
+
+    <!--添加小程序菜单-->
+    <insert id="addAppMenu" parameterType="map">
+        insert into t_appMenu (id,menu_name)
+        value ( #{id},#{menu_name})
+    </insert>
+
+    <!-- 查询 动态条件 记录 -->
+    <select id="selectAppMenu" parameterType="map" resultMap="BaseResultMap">
+        SELECT * FROM t_appmenu
+        <where>
+
+            is_delete = #{is_delete}
+            <if test="menu_name !=null and menu_name != ''">
+                and menu_name=#{menu_name}
+            </if>
+
+        </where>
+        ORDER BY creat_time DESC
+    </select>
+
+    <!--修改 数据-->
+    <update id="updateAppMenu" parameterType="map">
+        UPDATE  t_appmenu
+        <set>
+            <if test="menu_name != null " >menu_name = #{menu_name},</if>
+            <if test="is_delete != null " >is_delete = #{is_delete}</if>
+            <if test="menu_status != null " >menu_status = #{menu_status}</if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

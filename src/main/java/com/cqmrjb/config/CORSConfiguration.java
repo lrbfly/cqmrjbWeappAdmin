@@ -22,12 +22,10 @@ public class CORSConfiguration extends WebMvcConfigurationSupport {
                         "access-control-max-age",
                         "X-Frame-Options")
                 .allowCredentials(false).maxAge(3600);
-
-
         super.addCorsMappings(registry);
     }
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/img/**").addResourceLocations("file:E:/jsr_img/");
+        registry.addResourceHandler("/img/**").addResourceLocations("file:/usr/local/java/images").addResourceLocations("classpath:/META-INF/resources/");
     }
 }

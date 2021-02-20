@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqmrjb.dao.appMenu.AppMenuConentDao">
+    <!--设置domain类和数据库中表的字段一一对应，注意数据库字段和domain类中的字段名称不致，此处一定要！-->
+    <resultMap id="BaseResultMap" type="com.cqmrjb.entity.appMenu.AppMenuConent"></resultMap>
+
+    <!--添加菜单内容列表-->
+    <insert id="addAppContent" parameterType="map">
+        insert into t_appmenucontent (id,title,content,menu_id,comment,appCategory_id)
+        value ( #{id},#{title},#{content},#{menu_id},#{comment},#{appCategory_id})
+    </insert>
+
+    <!-- 查询 动态条件 记录 -->
+    <select id="selectAppContent" parameterType="map" resultMap="BaseResultMap">
+        SELECT * FROM t_appmenucontent
+        <where>
+            is_delete = #{is_delete}
+            <if test="menu_id !=null and menu_id != ''">
+                and menu_id=#{menu_id}
+            </if>
+            <if test="title !=null and title != ''">
+                and title=#{title}
+            </if>
+        </where>
+        ORDER BY insertTime DESC
+    </select>
+
+    <!--修改 数据-->
+    <update id="updateAppContent" parameterType="map">
+        UPDATE  t_appmenucontent
+        <set>
+            <if test="title != null " >title = #{title},</if>
+            <if test="content != null " >content = #{content},</if>
+            <if test="banner != null " >banner = #{banner},</if>
+            <if test="menu_id != null " >menu_id = #{menu_id},</if>
+            <if test="comment != null " >comment = #{comment},</if>
+            <if test="status != null " >banner = #{status}</if>
+
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

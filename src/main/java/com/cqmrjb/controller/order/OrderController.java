@@ -38,6 +38,15 @@ public class OrderController {
         result = orderService.addOrder(map);
         return result;
     }
+    // 修改订单
+    @RequestMapping("/updataOrder")
+    @ResponseBody
+    //新增 订单
+    public Map<String,Object> updataOrder(@RequestBody Map map){
+        Map<String,Object> result = new HashMap<>();
+        result = orderService.updataOrder(map);
+        return result;
+    }
 
 
 }

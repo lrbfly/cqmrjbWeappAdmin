@@ -7,8 +7,8 @@
 
     <!--新增订单-->
     <insert id="addOrder" parameterType="map">
-        insert into jxwx_order (phone,address,type,electrical,orde_type,order_source)
-        value ( #{phone},#{address},#{type},#{electrical},#{orde_type},#{order_source})
+        insert into jxwx_order (phone,address,type,electrical,order_type,order_source)
+        value ( #{phone},#{address},#{type},#{electrical},#{order_type},#{order_source})
     </insert>
 
     <!-- 查询 动态条件 记录 -->
@@ -22,7 +22,15 @@
                 and id=#{id}
             </if>
         </where>
+         ORDER BY create_time DESC limit #{page},#{pageSize}
     </select>
 
-
+    <!--修改 订单数据-->
+    <update id="updataOrder" parameterType="map">
+        UPDATE  jxwx_order
+        <set>
+            <if test="order_status != null" >order_status = #{order_status},</if>
+        </set>
+        where id = #{id}
+    </update>
 </mapper>

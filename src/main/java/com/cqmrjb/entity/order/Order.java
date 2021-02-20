@@ -7,7 +7,7 @@ public class Order {
     private int type;
     private int electrical;
     private String create_time;
-    private int orde_type;
+    private int order_type;
     private String update_time;
     private String order_source;
 
@@ -59,12 +59,12 @@ public class Order {
         this.create_time = create_time;
     }
 
-    public int getOrde_type() {
-        return orde_type;
+    public int getOrder_type() {
+        return order_type;
     }
 
-    public void setOrde_type(int orde_type) {
-        this.orde_type = orde_type;
+    public void setOrder_type(int order_type) {
+        this.order_type = order_type;
     }
 
     public String getUpdate_time() {

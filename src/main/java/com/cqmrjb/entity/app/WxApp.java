@@ -13,6 +13,34 @@ public class WxApp {
     private  String inserTime;
     private  Integer status;
     private  Integer appType;
+    private  String title0;
+    private  String title1;
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
+    private  String accountName;
+
+    public String getTitle0() {
+        return title0;
+    }
+
+    public void setTitle0(String title0) {
+        this.title0 = title0;
+    }
+
+    public String getTitle1() {
+        return title1;
+    }
+
+    public void setTitle1(String title1) {
+        this.title1 = title1;
+    }
 
     public Integer getId() {
         return id;

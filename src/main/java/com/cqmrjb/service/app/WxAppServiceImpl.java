@@ -34,14 +34,11 @@ public class WxAppServiceImpl implements WxAppService {
 
         int num = wxAppDao.addApp(map);
         if(num==1){
-            Map<String,Object> params = new HashMap<>();
-            params.put("is_delete",1);// 默认查询 is_delete 为 1 的
-            list = wxAppDao.selectApp(params);
             result.put("msg","操作成功");
         }else{
             result.put("msg","操作失败");
         }
-        result.put("data",list);
+        result.put("data",num);
         result.put("code",200);
         return  result;
     }
@@ -53,7 +50,6 @@ public class WxAppServiceImpl implements WxAppService {
 
         //判断 查询数据 是否为空
         if(list.size()>0){
-
             result.put("code",200);
             result.put("msg", "操作成功");
             result.put("data",listMap(list));
@@ -124,8 +120,11 @@ public class WxAppServiceImpl implements WxAppService {
                 for(int i=0,l=appCategoryStr.length;i<l;i++){
                     Map<String,Object> params = new HashMap<>();
                     params.put("id",appCategoryStr[i]);
+                    params.put("status",1);
                     List<AppCategory> appCategoryList = appCategoryDao.selectAppCategory(params);
-                    appCategoryStr1+=appCategoryList.get(0).getAppCategory()+" ";
+                    if(appCategoryList.size()>0){
+                        appCategoryStr1+=appCategoryList.get(0).getAppCategory()+" ";
+                    }
                 }
                 wxApp.setAppCategory(appCategoryStr1);
 

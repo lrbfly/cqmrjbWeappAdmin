@@ -27,7 +27,7 @@ public class UploadFileController {
             String suffixName = filename.substring(filename.lastIndexOf("."));
             String name = UUID.randomUUID().toString();
             filename = name + suffixName;//图片重命名
-            String imgFilePath = "E:/jsr_img/";
+            String imgFilePath = "/usr/local/java/images/";
             String path_img = imgFilePath + filename;//图片存储路径
             //第一次如果没有保存图片的文件夹创建文件夹
             File dest = new File(path_img);
